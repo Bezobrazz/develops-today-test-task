@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../components/Input/Input";
+import { Toast } from "../components/Toast/Toast";
 
 export default {
   title: "Components/Input",
@@ -109,6 +110,12 @@ export const PasswordWithClearable = {
 
 export const WithReactHookForm = {
   render: () => {
+    const [toastShow, setToastShow] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState<"success" | "error" | "info">(
+      "success"
+    );
+
     const {
       register,
       handleSubmit,
@@ -125,9 +132,12 @@ export const WithReactHookForm = {
 
     const onSubmit = (data: any) => {
       console.log("Form submitted:", data);
-      alert(
-        `Form submitted!\nEmail: ${data.email}\nPassword: ${data.password}\nAge: ${data.age}`
-      );
+      const message = `Form submitted successfully!\nEmail: ${
+        data.email
+      }\nPassword: ${data.password ? "••••••••" : ""}\nAge: ${data.age}`;
+      setToastMessage(message);
+      setToastType("success");
+      setToastShow(true);
     };
 
     const emailValue = watch("email");
@@ -135,63 +145,72 @@ export const WithReactHookForm = {
     const ageValue = watch("age");
 
     return (
-      <div style={{ maxWidth: "400px", padding: "2rem" }}>
-        <h2 style={{ marginBottom: "1.5rem" }}>Form with React Hook Form</h2>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-        >
-          <Input
-            type="text"
-            label="Email"
-            placeholder="Enter your email"
-            value={emailValue}
-            onChange={(value) => setValue("email", value)}
-            errorMessage={errors.email?.message}
-            clearable={true}
-          />
-          <Input
-            type="password"
-            label="Password"
-            placeholder="Enter your password"
-            value={passwordValue}
-            onChange={(value) => setValue("password", value)}
-            errorMessage={
-              errors.password?.message ||
-              (passwordValue &&
-              passwordValue.length > 0 &&
-              passwordValue.length < 8
-                ? "Password must be at least 8 characters"
-                : undefined)
-            }
-          />
-          <Input
-            type="number"
-            label="Age"
-            placeholder="Enter your age"
-            value={ageValue}
-            onChange={(value) => setValue("age", value)}
-            errorMessage={errors.age?.message}
-          />
-          <button
-            type="submit"
-            style={{
-              padding: "0.625rem 1.25rem",
-              fontSize: "1rem",
-              fontWeight: 500,
-              fontFamily: "inherit",
-              backgroundColor: "#646cff",
-              color: "white",
-              border: "none",
-              borderRadius: "0.5rem",
-              cursor: "pointer",
-              marginTop: "0.5rem",
-            }}
+      <>
+        <div style={{ maxWidth: "400px", padding: "2rem" }}>
+          <h2 style={{ marginBottom: "1.5rem" }}>Form with React Hook Form</h2>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            Submit
-          </button>
-        </form>
-      </div>
+            <Input
+              type="text"
+              label="Email"
+              placeholder="Enter your email"
+              value={emailValue}
+              onChange={(value) => setValue("email", value)}
+              errorMessage={errors.email?.message}
+              clearable={true}
+            />
+            <Input
+              type="password"
+              label="Password"
+              placeholder="Enter your password"
+              value={passwordValue}
+              onChange={(value) => setValue("password", value)}
+              errorMessage={
+                errors.password?.message ||
+                (passwordValue &&
+                passwordValue.length > 0 &&
+                passwordValue.length < 8
+                  ? "Password must be at least 8 characters"
+                  : undefined)
+              }
+            />
+            <Input
+              type="number"
+              label="Age"
+              placeholder="Enter your age"
+              value={ageValue}
+              onChange={(value) => setValue("age", value)}
+              errorMessage={errors.age?.message}
+            />
+            <button
+              type="submit"
+              style={{
+                padding: "0.625rem 1.25rem",
+                fontSize: "1rem",
+                fontWeight: 500,
+                fontFamily: "inherit",
+                backgroundColor: "#646cff",
+                color: "white",
+                border: "none",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+                marginTop: "0.5rem",
+              }}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        <Toast
+          type={toastType}
+          message={toastMessage}
+          show={toastShow}
+          duration={5000}
+          onClose={() => setToastShow(false)}
+        />
+      </>
     );
   },
 };
