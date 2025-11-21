@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Toast } from "../components/Toast/Toast";
+import "./Toast.stories.css";
 
 export default {
   title: "Feedback/Toast",
@@ -33,8 +34,10 @@ export const Success = {
   render: () => {
     const [show, setShow] = useState(true);
     return (
-      <div>
-        <button onClick={() => setShow(true)}>Show Success Toast</button>
+      <div className="toast-story-container">
+        <button className="toast-story-button" onClick={() => setShow(true)}>
+          Show Success Toast
+        </button>
         <Toast
           type="success"
           message="Operation completed successfully!"
@@ -50,8 +53,10 @@ export const Error = {
   render: () => {
     const [show, setShow] = useState(true);
     return (
-      <div>
-        <button onClick={() => setShow(true)}>Show Error Toast</button>
+      <div className="toast-story-container">
+        <button className="toast-story-button" onClick={() => setShow(true)}>
+          Show Error Toast
+        </button>
         <Toast
           type="error"
           message="Something went wrong. Please try again."
@@ -67,8 +72,10 @@ export const Info = {
   render: () => {
     const [show, setShow] = useState(true);
     return (
-      <div>
-        <button onClick={() => setShow(true)}>Show Info Toast</button>
+      <div className="toast-story-container">
+        <button className="toast-story-button" onClick={() => setShow(true)}>
+          Show Info Toast
+        </button>
         <Toast
           type="info"
           message="New update available. Check it out!"
@@ -84,8 +91,10 @@ export const ShortDuration = {
   render: () => {
     const [show, setShow] = useState(true);
     return (
-      <div>
-        <button onClick={() => setShow(true)}>Show Toast (1s duration)</button>
+      <div className="toast-story-container">
+        <button className="toast-story-button" onClick={() => setShow(true)}>
+          Show Toast (1s duration)
+        </button>
         <Toast
           type="info"
           message="This toast will auto-dismiss in 1 second"
@@ -102,8 +111,10 @@ export const LongDuration = {
   render: () => {
     const [show, setShow] = useState(true);
     return (
-      <div>
-        <button onClick={() => setShow(true)}>Show Toast (5s duration)</button>
+      <div className="toast-story-container">
+        <button className="toast-story-button" onClick={() => setShow(true)}>
+          Show Toast (5s duration)
+        </button>
         <Toast
           type="info"
           message="This toast will auto-dismiss in 5 seconds"
@@ -120,8 +131,10 @@ export const WithManualClose = {
   render: () => {
     const [show, setShow] = useState(true);
     return (
-      <div>
-        <button onClick={() => setShow(true)}>Show Toast with Close Button</button>
+      <div className="toast-story-container">
+        <button className="toast-story-button" onClick={() => setShow(true)}>
+          Show Toast with Close Button
+        </button>
         <Toast
           type="info"
           message="This toast has a manual close button"
