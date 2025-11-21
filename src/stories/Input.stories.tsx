@@ -132,7 +132,7 @@ export const WithReactHookForm = {
 
     const onSubmit = (data: any) => {
       console.log("Form submitted:", data);
-      const message = `Form submitted successfully!\nEmail: ${
+      const message = `Form submitted successfully!\n\nEmail: ${
         data.email
       }\nPassword: ${data.password ? "••••••••" : ""}\nAge: ${data.age}`;
       setToastMessage(message);
