@@ -140,6 +140,7 @@ export const WithManualClose = {
           message="This toast has a manual close button"
           show={show}
           onClose={() => setShow(false)}
+          duration={0}
         />
       </div>
     );
