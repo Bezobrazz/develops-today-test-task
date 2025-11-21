@@ -142,14 +142,23 @@ export const Input = ({
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M2.5 2.5L13.5 13.5M9.5 9.5C9.2 9.8 8.8 10 8.4 10C7.6 10 7 9.4 7 8.6C7 8.2 7.2 7.8 7.5 7.5M13.2 10.8C13.7 10.3 14.1 9.7 14.5 9C14.5 9 12 4 7.5 4C6.8 4 6.2 4.1 5.6 4.3M5.2 4.8C4.7 5.3 4.3 5.9 3.9 6.6C3.9 6.6 6.4 11.6 11 11.6C11.7 11.6 12.3 11.5 12.9 11.3"
+                      d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="8"
+                      cy="8"
+                      r="2"
                       stroke="currentColor"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                     <path
-                      d="M1 8C1 8 3.5 3 8 3C8.7 3 9.3 3.1 9.9 3.3"
+                      d="M2 2L14 14"
                       stroke="currentColor"
                       strokeWidth="1.5"
                       strokeLinecap="round"
