@@ -1,39 +1,122 @@
-import { SidebarMenu } from '../components/SidebarMenu/SidebarMenu';
+import React, { useState } from "react";
+import { SidebarMenu, MenuItem } from "../components/SidebarMenu/SidebarMenu";
+import "./SidebarMenu.stories.css";
 
 export default {
-  title: 'Components/SidebarMenu',
+  title: "Navigation/SidebarMenu",
   component: SidebarMenu,
+  argTypes: {
+    isOpen: {
+      control: "boolean",
+      description: "Whether sidebar is open",
+    },
+    onClose: {
+      action: "closed",
+      description: "Close handler",
+    },
+    items: {
+      control: "object",
+      description: "Menu items array",
+    },
+  },
 };
 
-const menuItems = [
-  { id: '1', label: 'Dashboard', onClick: () => console.log('Dashboard clicked') },
-  { id: '2', label: 'Projects', onClick: () => console.log('Projects clicked') },
-  { id: '3', label: 'Settings', onClick: () => console.log('Settings clicked') },
-  { id: '4', label: 'Profile', onClick: () => console.log('Profile clicked') },
+const oneLevelItems: MenuItem[] = [
+  { label: "Dashboard", href: "#dashboard" },
+  { label: "Projects", href: "#projects" },
+  { label: "Settings", href: "#settings" },
+  { label: "Profile", href: "#profile" },
 ];
 
-export const Default = {
-  args: {
-    items: menuItems,
-  },
-};
-
-export const WithActiveItem = {
-  args: {
-    items: menuItems,
-    activeItemId: '2',
-  },
-};
-
-export const WithIcons = {
-  args: {
-    items: [
-      { id: '1', label: 'Dashboard', icon: '📊', onClick: () => console.log('Dashboard clicked') },
-      { id: '2', label: 'Projects', icon: '📁', onClick: () => console.log('Projects clicked') },
-      { id: '3', label: 'Settings', icon: '⚙️', onClick: () => console.log('Settings clicked') },
-      { id: '4', label: 'Profile', icon: '👤', onClick: () => console.log('Profile clicked') },
+const twoLevelItems: MenuItem[] = [
+  { label: "Dashboard", href: "#dashboard" },
+  {
+    label: "Projects",
+    children: [
+      { label: "All Projects", href: "#projects/all" },
+      { label: "Active", href: "#projects/active" },
+      { label: "Archived", href: "#projects/archived" },
     ],
-    activeItemId: '1',
+  },
+  {
+    label: "Settings",
+    children: [
+      { label: "General", href: "#settings/general" },
+      { label: "Security", href: "#settings/security" },
+      { label: "Notifications", href: "#settings/notifications" },
+    ],
+  },
+  { label: "Profile", href: "#profile" },
+];
+
+export const OneLevel = {
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <div className="sidebar-story-container">
+        <button className="sidebar-story-button" onClick={() => setIsOpen(true)}>
+          Open Sidebar
+        </button>
+        <SidebarMenu
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          items={oneLevelItems}
+        />
+      </div>
+    );
   },
 };
 
+export const TwoLevel = {
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <div className="sidebar-story-container">
+        <button className="sidebar-story-button" onClick={() => setIsOpen(true)}>
+          Open Sidebar
+        </button>
+        <SidebarMenu
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          items={twoLevelItems}
+        />
+      </div>
+    );
+  },
+};
+
+export const OpenState = {
+  render: () => {
+    const [isOpen, setIsOpen] = useState(true);
+    return (
+      <div className="sidebar-story-container">
+        <button className="sidebar-story-button" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? "Close Sidebar" : "Open Sidebar"}
+        </button>
+        <SidebarMenu
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          items={twoLevelItems}
+        />
+      </div>
+    );
+  },
+};
+
+export const ClosedState = {
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <div className="sidebar-story-container">
+        <button className="sidebar-story-button" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? "Close Sidebar" : "Open Sidebar"}
+        </button>
+        <SidebarMenu
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          items={twoLevelItems}
+        />
+      </div>
+    );
+  },
+};
