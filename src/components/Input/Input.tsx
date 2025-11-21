@@ -26,6 +26,7 @@ export const Input = ({
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
+  const isNumber = type === "number";
   const inputType = isPassword && showPassword ? "text" : type;
 
   const handleClear = () => {
@@ -36,6 +37,14 @@ export const Input = ({
     setShowPassword((prev) => !prev);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    if (isNumber && newValue !== "" && !/^\d+$/.test(newValue)) {
+      return;
+    }
+    onChange(newValue);
+  };
+
   const isMinLengthError =
     errorMessage &&
     errorMessage.toLowerCase().includes("8") &&
@@ -43,8 +52,16 @@ export const Input = ({
       errorMessage.toLowerCase().includes("символ") ||
       errorMessage.toLowerCase().includes("at least"));
 
+  const numberValidationError =
+    isNumber && value !== "" && !/^\d+$/.test(value)
+      ? "Please enter only numbers"
+      : undefined;
+
+  const displayErrorMessage = numberValidationError || errorMessage;
+
   const shouldShowError =
-    errorMessage && !(isMinLengthError && value.length >= 8);
+    displayErrorMessage &&
+    !(isMinLengthError && value.length >= 8 && !numberValidationError);
 
   return (
     <div className={`input-wrapper ${className}`}>
@@ -53,10 +70,10 @@ export const Input = ({
         <input
           type={inputType}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={handleChange}
           placeholder={placeholder}
           disabled={disabled}
-          className={`input ${errorMessage ? "input-error" : ""}`}
+          className={`input ${shouldShowError ? "input-error" : ""}`}
         />
         {(isPassword || clearable) && (
           <div className="input-actions">
@@ -146,7 +163,7 @@ export const Input = ({
         )}
       </div>
       {shouldShowError && (
-        <span className="input-error-message">{errorMessage}</span>
+        <span className="input-error-message">{displayErrorMessage}</span>
       )}
     </div>
   );
